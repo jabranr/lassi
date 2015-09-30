@@ -1,0 +1,22 @@
+{
+    "name": "jabranr/lassi",
+    "description": "Small PHP framework for quick apps based on Slim and Eloquent",
+    "version": "0.0.1",
+    "require": {
+        "slim/slim": "^2.6",
+        "illuminate/database": "^5.1"
+    },
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Jabran Rafique",
+            "email": "hello@jabran.me"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Lassi\\": ""
+        }
+    }
+}
