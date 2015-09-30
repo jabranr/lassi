@@ -62,8 +62,8 @@ class Database {
 				'prefix' => getenv('db_prefix'),
 				'username' => getenv('db_user'),
 				'password' => getenv('db_password'),
-				'charset' => 'utf8mb4',
-				'collation' => 'utf8mb4_unicode_ci'
+				'charset' => getenv('db_charset'),
+				'collation' => getenv('db_collation')
 			)
 		);
 
