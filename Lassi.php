@@ -47,10 +47,24 @@ class Lassi {
 	 * @return void
 	 */
 	public static function bootstrap() {
+
+		/* Load configuration from .dev.env | .dist.env | .env */
 		Util::setEnvVariables(dirname(__FILE__));
-		static::getInstance();
+
+		/* Get instances */
+		$lassi = static::getInstance();
+		$slim = $lassi->getApp();
+
+		/* Add base URL to all views for assets management */
+		$slim->hook('slim.before', function() use ($slim) {
+			$slim->view()->appendData(array('baseUrl' => getenv('base_url')));
+		});
+
+		/* Load routes */
 		static::loadRoutes();
-		static::getInstance()->getApp()->run();
+
+		/* Run Slim framework */
+		$slim->run();
 	}
 
 	/**

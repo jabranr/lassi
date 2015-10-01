@@ -4,31 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Welcome! Have some Lassi</title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
-	<style>
-		*,
-		*:before,
-		*:after { box-sizing: border-box; }
-
-		body {
-			margin: 0;
-			pading: 0;
-			font-family: Roboto, Helvetica, Arial, sans-serif;
-			font-size: 16px;
-			line-height: 1.5;
-			background-color: #fff;
-			color: #666;
-			text-align: center;
-			font-weight: 300;
-		}
-
-		h1, h2, h3 {
-			margin: 0 auto;
-			display: block;
-		}
-
-		.app-title { margin-top: 3em; }
-		.app-description { width: 50%; margin: 18px auto; }
-	</style>
+	<link rel="stylesheet" href="<?php echo $baseUrl; ?>/view/assets/css/main.css">
 </head>
 <body>
 	<h1 class="app-title">Welcome!</h1>

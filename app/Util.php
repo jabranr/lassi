@@ -45,6 +45,11 @@ class Util {
 
 		$configs = explode("\n", trim($configs));
 		array_map(function($config) {
+
+			// Remove whitespaces
+			$config = preg_replace('(\s+)', '', $config);
+
+			// Add as global vars
 			putenv($config);
 		}, $configs);
 	}
