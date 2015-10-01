@@ -1,13 +1,13 @@
 {
     "name": "jabranr/lassi",
-    "description": "Small PHP framework for quick apps based on Slim and Eloquent",
+    "description": "PHP boilerplate for quick projects based on Slim and Eloquent",
     "version": "0.0.2",
+    "license": "MIT License",
     "require": {
         "php": ">=5.4.0",
         "slim/slim": "^2.6",
         "illuminate/database": "^5.1"
     },
-    "license": "MIT License",
     "authors": [
         {
             "name": "Jabran Rafique",
@@ -25,11 +25,14 @@
             "Lassi\\Tests\\": ""
         }
     },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"copy('.sample.env', '.dev.env');\""
+        ]
+    },
     "ignore": [
         "vendor",
         "test",
-        "*.lock",
-        "*.env",
-        "!.sample.env"
+        "*.lock"
     ]
 }
