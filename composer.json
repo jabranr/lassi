@@ -3,6 +3,7 @@
     "description": "Small PHP framework for quick apps based on Slim and Eloquent",
     "version": "0.0.1",
     "require": {
+        "php": ">=5.4.0",
         "slim/slim": "^2.6",
         "illuminate/database": "^5.1"
     },
@@ -10,13 +11,25 @@
     "authors": [
         {
             "name": "Jabran Rafique",
-            "email": "hello@jabran.me"
+            "email": "hello@jabran.me",
+            "homepage": "http://jabran.me"
         }
     ],
-    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Lassi\\": ""
         }
-    }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lassi\\Tests": "test/"
+        }
+    },
+    "ignore": [
+        "vendor",
+        "test",
+        "*.lock",
+        "*.env",
+        "!.sample.env"
+    ]
 }
