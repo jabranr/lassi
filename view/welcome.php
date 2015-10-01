@@ -9,6 +9,6 @@
 <body>
 	<h1 class="app-title">Welcome!</h1>
 	<h2>Have some Lassi</h2>
-	<p class="app-description">Lassi is a small PHP boilerplate to use <a href="http://www.slimframework.com/" target="_blank">Slim Framework</a> with <a href="https://github.com/illuminate/database" target="_blank">Illuminate Database</a> components &ndash; enabling you to quickly start building your PHP apps with a MVC design pattern and datastore in no time.</p>
+	<p class="app-description">Lassi is a PHP boilerplate to use <a href="http://www.slimframework.com/" target="_blank">Slim Framework</a> with <a href="https://github.com/illuminate/database" target="_blank">Illuminate Database (Eloquent)</a> components &ndash; enabling you to quickly start building your projects with an MVC design pattern and datastore in no time.</p>
 </body>
 </html>
