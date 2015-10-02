@@ -11,7 +11,7 @@
 /**
  * Define app root path
  */
-define('ROOT', dirname(__FILE__));
+define('ROOT', dirname(dirname(__FILE__)));
 
 /**
  * Set datetime defaults
@@ -24,7 +24,7 @@ date_default_timezone_set('UTC');
 require ROOT . '/vendor/autoload.php';
 
 /**
- * Setup Lassi with Slim framework and Eloquent
+ * Bootstrap boilerplate
  */
-\Lassi\Lassi::bootstrap();
+require ROOT . '/bootstrap.php';
 

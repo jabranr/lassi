@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Welcome! Have some Lassi</title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="<?php echo $baseUrl; ?>/view/assets/css/main.css">
+	<link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
 	<h1 class="app-title">Welcome!</h1>

@@ -28,7 +28,7 @@ class Lassi {
 	 * @return \Lassi\Lassi
 	 */
 	public function __construct(Slim $app = null) {
-		$this->setApp($app, array('templates.path' => './view'));
+		$this->setApp($app, array('templates.path' => '../view'));
 		$this->setEloquent();
 		return $this;
 	}
