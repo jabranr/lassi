@@ -18,6 +18,14 @@ class Util {
 	public static function setEnvVariables($root = '/') {
 		$configs = null;
 
+		// Set custom handler to catch errors as exceptions
+		set_error_handler(
+		    create_function(
+		        '$severity, $message, $file, $line',
+		        'throw new ErrorException($message, $severity, $severity, $file, $line);'
+		    )
+		);
+
 		if ( file_exists($root . '/.dev.env') && is_readable($root . '/.dev.env') ) {
 			try {
 				$configs = file_get_contents($root . '/.dev.env');
@@ -42,6 +50,9 @@ class Util {
 		else {
 			throw new \Lassi\App\Exception\NotFoundException('No configuration found.');
 		}
+
+		// Restore original error handler
+		restore_error_handler();
 
 		$configs = explode("\n", trim($configs));
 		array_map(function($config) {
