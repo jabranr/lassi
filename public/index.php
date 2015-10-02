@@ -4,7 +4,6 @@
  * Lassi - Small PHP framework for quick apps based on Slim and Eloquent
  *
  * @author Jabran Rafique <hello@jabran.me>
- * @version 0.0.2
  * @license MIT License
  */
 

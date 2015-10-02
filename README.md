@@ -3,60 +3,86 @@ PHP boilerplate for quick projects using Slim Framework and Illuminate Database.
 
 ![Lassi](https://cloud.githubusercontent.com/assets/2131246/10229125/66ff122e-686e-11e5-9351-d6e840c1917b.png)
 
-Lassi is a small PHP boilerplate to use <a href="http://www.slimframework.com/" target="_blank">Slim Framework</a> with <a href="https://github.com/illuminate/database" target="_blank">Illuminate Database</a> components &ndash; enabling you to quickly start building your PHP apps with a MVC design pattern and datastore in no time.
+Lassi is a small PHP boilerplate to use <a href="http://www.slimframework.com/" target="_blank">Slim Framework</a> with <a href="https://github.com/illuminate/database" target="_blank">Illuminate Database</a> components &ndash; enabling you to quickly start building your PHP projects with an MVC design pattern and datastore in no time.
 
 > Warnning: Project is in alpha status. For more see [issues tracker](https://github.com/jabranr/lassi/issues).
 
 # Installation and Setup
-Install with [composer](http://getcomposer.org) as `create-project` command. This will install the Lassi and all of it's dependencies i.e. Slim Framework and Illuminate Database.
+Install with [composer](http://getcomposer.org) `create-project` command. This will install Lassi and all of it's dependencies i.e. Slim Framework and Illuminate Database.
 
 ```shell
 $ composer create-project jabranr/lassi
 ```
 
 #### Configuration
-Lassi uses `.env` files to setup it's configuration. There is such sample file `.sample.env` packaged with it. The Lassi will look for `.dev.env`, `.dist.env` or `.env` respectively at run time or throws `NotFoundException`.
+Lassi uses `.env` files to setup it's configuration. There is such sample file `.sample.env` packaged with it. Lassi will look for `.dev.env`, `.dist.env` or `.env` respectively at the run time or throws `NotFoundException`.
 
 #### Charset & Collation
-By default Lassi's `.sample.env` file has charset and collation set to `UTF-8 mb4` to support the maximum type of character encodings. You can update it with your own choice, of course. For more on best encoding practices, read [Working with UTF-8 at PHP: The Right Way](http://www.phptherightway.com/#php_and_utf8).
+By default `.sample.env` file has charset and collation configurations set to `UTF-8 mb4` to support various type of characters encoding. You can update it with your own choice, of course. For more on best encoding practices, read [Working with UTF-8 at PHP: The Right Way](http://www.phptherightway.com/#php_and_utf8).
 
 #### Routing
-Use the `routes.php` in root directory to setup routes. You would setup routes as you do in Slim Framework. Afterall it is using Slim Framework in background. For more on setting up routes, see [Slim Framework Documentation](http://docs.slimframework.com/routing/overview/)
+Use the `routes.php` in root directory to setup routes. You would setup routes as you do in Slim Framework. Afterall it is using Slim Framework in background. For more on setting up routes, see [Slim Framework Documentation](http://docs.slimframework.com/routing/overview/).
 
 #### Structure
-**Controllers:** The Controllers are to be saved in `lassi/controller` directory. All Controllers shall extend the base controller as `\Lassi\App\Controller` and pass the Lassi instance to its constructor using `\Lassi\Lassi::getInstance()` method. You can also add relevant Model(s) using `useModel(string|array $model)` method. You can name the controller anything but do keep up with best practices.
+**Controllers:** The Controllers are to be saved in `controller/` directory. All Controllers must extend `\Lassi\App\Controller` base controller class and pass the `\Lassi\Lassi` instance to its constructor using `\Lassi\Lassi::getInstance()` method. You can also add relevant Model(s) using `useModel(string|array $model)` method. You can name the controller as you like but do keep up with best practices.
 
-**Models:** All relevant Models are saved in `lassi/model` directory and should extend the `\Illuminate\Database\Eloquent\Model` class. There is an example controller and model in mentioned directories for you to get started with.
+**Models:** All relevant Models are saved in `model/` directory and must extend the `\Illuminate\Database\Eloquent\Model` class. You would use models as you do in `Illuminate/Database`. For more on setting up models and use other options, see [Illuminate Database Documentation](https://github.com/illuminate/database).
 
-**Views:** All views/templates are saved in `lassi/view` directory.
+There is an example controller and model in mentioned directories for you to get started with.
 
-**Assets:** All assets are saved in `lassi/public` directory.
+**Views:** All views/templates are saved in `view/` directory.
+
+**Assets:** All assets are saved in `public/` directory.
 
 #### Example:
 
-Create a project using Composer and `cd` into project directory.
+**Create project**
+
+Create a project using Composer `create-project` command and `cd` into project directory.
 ```shell
 $ composer create-project jabranr/lassi
 $ cd path/to/lassi
 ```
 
-Copy the `.sample.env` to either `.dev.env`, `.dist.env` or `.env` and update information in it as required.
+**Update configuration**
+Update configurations as required in `.dev.env` file.
 
+**Start server**
 Start the PHP built-in server and navigate browser to `http://localhost:8000`.
 ```shell
 $ php -S localhost:8000 -t public
 ```
 
-Add a new route in `routes.php` and try it in browser by navigating to `http://localhost:8000/hello`
+**Setup routes**
+
+1. Add `hello` route
+
+Add a new route `hello` in `routes.php` and try it in browser by navigating to `http://localhost:8000/hello`
 ```php
 $app->get('/hello', function() use ($app) {
 	$app->response->write('Hello World');
 });
 ```
 
-Add a new route in `routes.php` to render a page. Create new HTML file `goodbye.php` and save in `/view` directory. Call this file directly from a route definition or through a `Controller`.
+2. Add `goodbye` route
 
-**Directly from a route definition**
+Add a new route `goodbye` in `routes.php` to render a template. Create a new file `goodbye.php` with basic HTML and save in `/view` directory.
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lassi goodbye template</title>
+	</head>
+	<body>
+		<h1>Goodbye!</h1>
+	</body>
+</html>
+```
+
+Call this template to render directly from a route's definition or by using a `Controller`.
+
+**Directly from a route's definition**
 
 ```php
 $app->get('/goodbye', function() use ($app) {
@@ -69,7 +95,7 @@ $app->get('/goodbye', function() use ($app) {
 Add a new public method `goodbye()` to `WelcomeController.php` in `/controller` directory.
 
 ```php
-class WelcomeController {
+class WelcomeController extends \Lassi\App\Controller {
 	...
 
 	public function goodbye() {
@@ -78,7 +104,7 @@ class WelcomeController {
 }
 ```
 
-Modify the route definition to use controller.
+Modify the route's definition to use controller.
 
 ```php
 $app->get('/goodbye', '\Lassi\Controller\WelcomeController:goodbye');

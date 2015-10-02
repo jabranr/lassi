@@ -4,6 +4,7 @@
  * Lassi
  *
  * @author Jabran Rafique <hello@jabran.me>
+ * @version 0.0.3
  * @license MIT License
  */
 
