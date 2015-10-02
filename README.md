@@ -1,11 +1,11 @@
 # Lassi
-PHP boilerplate for quick projects based on Slim and Eloquent.
+PHP boilerplate for quick projects using Slim Framework and Illuminate Database.
 
 ![Lassi](https://cloud.githubusercontent.com/assets/2131246/10229125/66ff122e-686e-11e5-9351-d6e840c1917b.png)
 
 Lassi is a small PHP boilerplate to use <a href="http://www.slimframework.com/" target="_blank">Slim Framework</a> with <a href="https://github.com/illuminate/database" target="_blank">Illuminate Database</a> components &ndash; enabling you to quickly start building your PHP apps with a MVC design pattern and datastore in no time.
 
-> Warnning: Project is in alpha status. Use at your own risk. Best to not use for any production project yet.
+> Warnning: Project is in alpha status. For more see [issues tracker](https://github.com/jabranr/lassi/issues).
 
 # Installation and Setup
 Install with [composer](http://getcomposer.org) as `create-project` command. This will install the Lassi and all of it's dependencies i.e. Slim Framework and Illuminate Database.
