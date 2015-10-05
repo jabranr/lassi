@@ -39,7 +39,7 @@ class Controller {
 
 		if (is_scalar($models)) {
 			$name = strtolower($models);
-			$class = sprintf('Lassi\Model\%s', ucwords($name));
+			$class = sprintf('\Lassi\Model\%s', ucwords($name));
 			$this->{$name} = new $class;
 			$this->{$name}->setConnection($this->lassi->getEloquent());
 		}
