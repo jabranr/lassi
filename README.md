@@ -45,9 +45,11 @@ $ cd path/to/lassi
 ```
 
 **Update configuration**
+
 Update configurations as required in `.dev.env` file.
 
 **Start server**
+
 Start the PHP built-in server and navigate browser to `http://localhost:8000`.
 ```shell
 $ php -S localhost:8000 -t public
@@ -55,7 +57,7 @@ $ php -S localhost:8000 -t public
 
 **Setup routes**
 
-1. Add `hello` route
+* Add `hello` route
 
 Add a new route `hello` in `routes.php` and try it in browser by navigating to `http://localhost:8000/hello`
 ```php
@@ -64,7 +66,7 @@ $app->get('/hello', function() use ($app) {
 });
 ```
 
-2. Add `goodbye` route
+* Add `goodbye` route
 
 Add a new route `goodbye` in `routes.php` to render a template. Create a new file `goodbye.php` with basic HTML and save in `/view` directory.
 
@@ -111,6 +113,103 @@ $app->get('/goodbye', '\Lassi\Controller\WelcomeController:goodbye');
 ```
 
 For complete reference, see [Slim Framework documentation](http://docs.slimframework.com/)
+
+#### Using Eloquent
+
+To setup any database connection fill in the required information in relevant `*.env` file.
+
+**Setup SQLite database**
+
+At minimum it requires an absolute URL to SQLite file and `db_driver` value set to `sqlite`.
+
+```shell
+db_driver	 = sqlite (Required)
+db_name		 = path/to/foo.sqlite (Required)
+db_prefix	 = lassi_ (Optional)
+```
+
+**Setup MySQL, SQL, MSSQL or Sybase database**
+
+At minimum it requires:
+
+1. `db_driver` value set to `mysql`, `mssql` or `sybase`.
+2. `db_host`
+2. `db_name`
+3. `db_username`
+4. `db_password`
+
+```shell
+db_driver	 = mysql (Required)
+db_host		 = localhost (Required)
+db_name		 = lassi (Required)
+db_username	 = root (Required)
+db_password	 = p@ssword (Required)
+db_prefix	 = lassi_ (Optional)
+```
+
+**Create a table using Eloquent**
+
+Using Eloquent is straight forward after a connection is established. You can use the `\Illuminate\Database\Capsule\Manager::schema()` method to setup database migrations. Here is an example to create a `lassi_users` table.
+
+```php
+class WelcomeController extends \Lassi\App\Controller {
+	...
+
+	public function makeUserTable() {
+		\Illuminate\Database\Capsule\Manager::schema()->create('users', function($table) {
+			$table->increments('id');
+			$table->string('name', 255);
+			$table->string('email', 255)->unique();
+			$table->timestamps();
+		});
+	}
+}
+```
+
+Calling `\Lassi\Controller\WelcomeController->makeUserTable()` will create a new table in database.
+
+
+A model can be added to a controller using `useModel()` method in controller's constructor i.e.
+
+```php
+class WelcomeController extends \Lassi\App\Controller {
+
+	public function __construct() {
+
+		parent::__construct(Lassi::getInstance());
+
+		$this->useModel('user');
+	}
+}
+```
+
+or it can directly be accessed using `\Lassi\Model` namespace i.e.
+
+```php
+class WelcomeController extends \Lassi\App\Controller {
+	...
+
+	public function create() {
+		$user = new \Lassi\Model\User;
+		$user->name = 'Jabran Rafique';
+		$user->email = 'hello@jabran.me';
+		$user->save();
+	}
+}
+```
+
+Getting info from Eloquent and pass it to template.
+
+```php
+class WelcomeController extends \Lassi\App\Controller {
+	...
+
+	public function goodbye() {
+		$user = \Lassi\Model\User::find(1);
+		return $this->app->render('goodbye.php', array('user' => $user));
+	}
+}
+```
 
 # Issue tracking
 Please report any issues to [repository issue tracker](https://github.com/jabranr/lassi/issues).

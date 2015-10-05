@@ -73,9 +73,9 @@ class Database {
 		);
 
 		// Add extras depending on type of driver/connection
-		if ( $db_driver === 'mysql' ) {
+		if ( $db_driver !== 'sqlite' ) {
 			if ( getenv('db_host') ) $configs['host'] = getenv('db_host');
-			if ( getenv('db_user') ) $configs['username'] = getenv('db_user');
+			if ( getenv('db_username') ) $configs['username'] = getenv('db_username');
 			if ( getenv('db_password') ) $configs['password'] = getenv('db_password');
 		}
 
