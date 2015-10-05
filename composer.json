@@ -1,7 +1,7 @@
 {
     "name": "jabranr/lassi",
     "description": "PHP boilerplate for quick projects based on Slim and Eloquent",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "license": "MIT License",
     "require": {
         "php": ">=5.4.0",

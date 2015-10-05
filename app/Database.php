@@ -48,26 +48,44 @@ class Database {
 	/**
 	 * Setup eloquent database
 	 * @param \Illuminate\Database\Capsule\Manager $capsule
+	 * @throws \Lassi\App\Exception\NotFoundException
 	 * @return \Lassi\App\Database
 	 */
 	private function _makeEloquent(Capsule $capsule) {
-		if (!getenv('db_name') || !getenv('db_user'))
+
+		// Throw exception if minimum requirements not met
+		if (!getenv('db_driver') || !getenv('db_name'))
 			throw new NotFoundException('App configurations not found.');
 
+		// Get capsule instance
 		$this->capsule = $capsule;
-		$this->capsule->addConnection(array(
-				'host' => getenv('db_host'),
-				'driver' => getenv('db_driver'),
-				'database' => getenv('db_name'),
-				'prefix' => getenv('db_prefix'),
-				'username' => getenv('db_user'),
-				'password' => getenv('db_password'),
-				'charset' => getenv('db_charset'),
-				'collation' => getenv('db_collation')
-			)
+
+		// Cache db driver
+		$db_driver = getenv('db_driver');
+
+		// Setup connection defaults
+		$configs = array(
+			'driver' => $db_driver,
+			'database' => getenv('db_name'),
+			'prefix' => getenv('db_prefix'),
+			'charset' => getenv('db_charset'),
+			'collation' => getenv('db_collation'),
 		);
 
+		// Add extras depending on type of driver/connection
+		if ( $db_driver === 'mysql' ) {
+			if ( getenv('db_host') ) $configs['host'] = getenv('db_host');
+			if ( getenv('db_user') ) $configs['username'] = getenv('db_user');
+			if ( getenv('db_password') ) $configs['password'] = getenv('db_password');
+		}
+
+		// Setup connection
+		$this->capsule->addConnection($configs);
+
+		// Set as global
 		$this->capsule->setAsGlobal();
+
+		// Boot eloquent
 		$this->capsule->bootEloquent();
 		return $this;
 	}
