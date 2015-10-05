@@ -123,33 +123,26 @@ To setup any database connection fill in the required information in relevant `*
 At minimum it requires an absolute URL to SQLite file and `db_driver` value set to `sqlite`.
 
 ```shell
-db_driver	 = sqlite (Required)
-db_name		 = path/to/foo.sqlite (Required)
-db_prefix	 = lassi_ (Optional)
+db_driver	 = sqlite				(Required)
+db_name		 = path/to/foo.sqlite	(Required)
+db_prefix	 = lassi_				(Optional)
 ```
 
 **Setup MySQL, SQL, MSSQL or Sybase database**
 
-At minimum it requires:
-
-1. `db_driver` value set to `mysql`, `mssql` or `sybase`.
-2. `db_host`
-2. `db_name`
-3. `db_username`
-4. `db_password`
-
 ```shell
-db_driver	 = mysql (Required)
-db_host		 = localhost (Required)
-db_name		 = lassi (Required)
-db_username	 = root (Required)
-db_password	 = p@ssword (Required)
-db_prefix	 = lassi_ (Optional)
+db_driver	 = mysql		(Required)
+db_host		 = localhost	(Required)
+db_name		 = lassi		(Required)
+db_username	 = root			(Required)
+db_password	 = p@ssword		(Required)
+db_prefix	 = lassi_		(Optional)
 ```
+Using Eloquent is straight forward after a connection is established. To learn more on how to use Eloquent, see [Official Eloquent Documentation](http://laravel.com/docs/5.1/eloquent).
 
 **Create a table using Eloquent**
 
-Using Eloquent is straight forward after a connection is established. You can use the `\Illuminate\Database\Capsule\Manager::schema()` method to setup database migrations. Here is an example to create a `lassi_users` table.
+You can use the `\Illuminate\Database\Capsule\Manager::schema()` method to setup database migrations. Here is an example to create a `lassi_users` table.
 
 ```php
 class WelcomeController extends \Lassi\App\Controller {
@@ -158,8 +151,8 @@ class WelcomeController extends \Lassi\App\Controller {
 	public function makeUserTable() {
 		\Illuminate\Database\Capsule\Manager::schema()->create('users', function($table) {
 			$table->increments('id');
-			$table->string('name', 255);
-			$table->string('email', 255)->unique();
+			$table->string('name');
+			$table->string('email')->unique();
 			$table->timestamps();
 		});
 	}
@@ -168,16 +161,12 @@ class WelcomeController extends \Lassi\App\Controller {
 
 Calling `\Lassi\Controller\WelcomeController->makeUserTable()` will create a new table in database.
 
-
 A model can be added to a controller using `useModel()` method in controller's constructor i.e.
 
 ```php
 class WelcomeController extends \Lassi\App\Controller {
-
 	public function __construct() {
-
 		parent::__construct(Lassi::getInstance());
-
 		$this->useModel('user');
 	}
 }
