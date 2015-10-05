@@ -166,7 +166,7 @@ A model can be added to a controller using `useModel()` method in controller's c
 ```php
 class WelcomeController extends \Lassi\App\Controller {
 	public function __construct() {
-		parent::__construct(Lassi::getInstance());
+		parent::__construct(\Lassi\Lassi::getInstance());
 		$this->useModel('user');
 	}
 }
