@@ -1,14 +1,14 @@
 # Lassi
-PHP boilerplate for quick projects using Slim Framework and Illuminate Database.
+PHP boilerplate for quick projects using Slim Framework and Eloquent database.
 
 ![Lassi](https://cloud.githubusercontent.com/assets/2131246/10229125/66ff122e-686e-11e5-9351-d6e840c1917b.png)
 
-Lassi is a small PHP boilerplate to use <a href="http://www.slimframework.com/" target="_blank">Slim Framework</a> with <a href="https://github.com/illuminate/database" target="_blank">Illuminate Database</a> components &ndash; enabling you to quickly start building your PHP projects with an MVC design pattern and datastore in no time.
+Lassi is a small PHP boilerplate to use <a href="http://www.slimframework.com/" target="_blank">Slim Framework</a> with <a href="https://github.com/illuminate/database" target="_blank">Eloquent database</a> components &ndash; enabling you to quickly start building your PHP projects with an MVC design pattern and datastore in no time.
 
 > Warnning: Project is in alpha status. For more see [issues tracker](https://github.com/jabranr/lassi/issues).
 
 # Installation and Setup
-Install with [composer](http://getcomposer.org) `create-project` command. This will install Lassi and all of it's dependencies i.e. Slim Framework and Illuminate Database.
+Install with [composer](http://getcomposer.org) `create-project` command. This will install Lassi and all of it's dependencies i.e. Slim Framework and Eloquent database.
 
 ```shell
 $ composer create-project jabranr/lassi
@@ -26,7 +26,7 @@ Use the `routes.php` in root directory to setup routes. You would setup routes a
 #### Structure
 **Controllers:** The Controllers are to be saved in `controller/` directory. All Controllers must extend `\Lassi\App\Controller` base controller class and pass the `\Lassi\Lassi` instance to its constructor using `\Lassi\Lassi::getInstance()` method. You can also add relevant Model(s) using `useModel(string|array $model)` method. You can name the controller as you like but do keep up with best practices.
 
-**Models:** All relevant Models are saved in `model/` directory and must extend the `\Illuminate\Database\Eloquent\Model` class. You would use models as you do in `Illuminate/Database`. For more on setting up models and use other options, see [Illuminate Database Documentation](https://github.com/illuminate/database).
+**Models:** All relevant Models are saved in `model/` directory and must extend the `\Illuminate\Database\Eloquent\Model` class. You would use models as you do in Eloquent. For more on setting up models and use other options, see [Eloquent database quick start guide](https://github.com/illuminate/database).
 
 There is an example controller and model in mentioned directories for you to get started with.
 
