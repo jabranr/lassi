@@ -7,6 +7,6 @@
  * @license MIT License
  */
 
-use \Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Model { }

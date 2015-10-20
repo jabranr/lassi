@@ -1,7 +1,10 @@
 <?php namespace Lassi;
 
 /**
- * Lassi
+ * Lassi is a small PHP boilerplate to use Slim Framework
+ * with Eloquent database components – enabling you to quickly
+ * start building your PHP projects with an MVC design pattern
+ * and datastore in no time.
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @version 0.0.5
@@ -34,7 +37,7 @@ class Lassi {
 	/* @var Slim\Slim */
 	protected $app;
 
-	/* @var \Lassi\Lassi */
+	/* @var Lassi\Lassi */
 	protected static $instance;
 
 	/**

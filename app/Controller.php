@@ -7,6 +7,7 @@
  * @license MIT License
  */
 
+use Slim\Slim;
 use Lassi\Lassi;
 use Lassi\App\Exception\InvalidInstanceReference;
 
@@ -63,7 +64,7 @@ class Controller {
 	 * @param Slim\Slim $app
 	 * @return Lassi\App\Controller
 	 */
-	public function setApp(Slim\Slim $app) {
+	public function setApp(Slim $app) {
 		$this->app = $app;
 		return $this;
 	}
