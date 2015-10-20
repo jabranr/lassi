@@ -7,28 +7,30 @@
  * @license MIT License
  */
 
-use \Lassi\App\Exception\NotFoundException;
-use \Illuminate\Database\Capsule\Manager as Capsule;
+use Lassi\App\Exception\ResourceNotFound;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Database {
 
-	/** @var \Illuminate\Database\Capsule\Manager */
+	/* @var Illuminate\Database\Capsule\Manager */
 	protected $capsule;
 
-	/** @var Lassi\App\Database */
+	/* @var Lassi\App\Database */
 	protected static $instance;
 
 	/**
-	 * @return \Lassi\App\Database
+	 * Setup Eloquent database
+	 *
+	 * @return Lassi\App\Database
 	 */
 	public function __construct() {
-		$this->_makeEloquent(new Capsule());
+		$this->setupEloquent(new Capsule());
 		return $this;
 	}
 
 	/**
 	 * Get instance of current class
-	 * @return \Lassi\App\Database
+	 * @return Lassi\App\Database
 	 */
 	public static function getInstance() {
 		if (! static::$instance instanceof Database) {
@@ -38,27 +40,40 @@ class Database {
 	}
 
 	/**
-	 * Get instance of capsule
-	 * @return \Illuminate\Database\Capsule\Manager
+	 * Set eloquent capsule
+	 *
+	 * @param Illuminate\Database\Capsule\Manager $capsule
+	 * @return Lassi\App\Database
 	 */
-	public function capsule() {
+	public function setCapsule(Capsule $capsule) {
+		$this->capsule = $capsule;
+		return $this;
+	}
+
+	/**
+	 * Get eloquent capsule
+	 *
+	 * @return Illuminate\Database\Capsule\Manager
+	 */
+	public function getCapsule() {
 		return $this->capsule;
 	}
 
 	/**
 	 * Setup eloquent database
-	 * @param \Illuminate\Database\Capsule\Manager $capsule
-	 * @throws \Lassi\App\Exception\NotFoundException
-	 * @return \Lassi\App\Database
+	 *
+	 * @param Illuminate\Database\Capsule\Manager $capsule
+	 * @throws Lassi\App\Exception\ResourceNotFound
+	 * @return Lassi\App\Database
 	 */
-	private function _makeEloquent(Capsule $capsule) {
+	private function setupEloquent(Capsule $capsule) {
 
 		// Throw exception if minimum requirements not met
 		if (!getenv('db_driver') || !getenv('db_name'))
-			throw new NotFoundException('App configurations not found.');
+			throw new ResourceNotFound('App configurations not found.');
 
 		// Get capsule instance
-		$this->capsule = $capsule;
+		$this->setCapsule($capsule);
 
 		// Cache db driver
 		$db_driver = getenv('db_driver');
@@ -80,13 +95,13 @@ class Database {
 		}
 
 		// Setup connection
-		$this->capsule->addConnection($configs);
+		$this->getCapsule()->addConnection($configs);
 
 		// Set as global
-		$this->capsule->setAsGlobal();
+		$this->getCapsule()->setAsGlobal();
 
 		// Boot eloquent
-		$this->capsule->bootEloquent();
+		$this->getCapsule()->bootEloquent();
 		return $this;
 	}
 }

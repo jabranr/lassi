@@ -3,6 +3,7 @@ Thumbs.db
 .tmp
 *.lock
 *.env
+*.log
 !.sample.env
 bower_components/
 node_modules/

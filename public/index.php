@@ -13,11 +13,6 @@
 define('ROOT', dirname(dirname(__FILE__)));
 
 /**
- * Set datetime defaults
- */
-date_default_timezone_set('UTC');
-
-/**
  * Load dependencies
  */
 require ROOT . '/vendor/autoload.php';

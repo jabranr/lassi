@@ -7,22 +7,29 @@
  * @license MIT License
  */
 
-use \Lassi\Lassi;
+use Lassi\Lassi;
+use Lassi\App\Exception\InvalidInstanceReference;
 
 class Controller {
 
+	/** @var Lassi\Lassi $lassi */
 	protected $lassi;
+
+	/** @var Slim\Slim $app */
 	protected $app;
 
 	/**
-	 * @param string|aray $model
-	 * @return \Lassi\App\Controller
+	 * @param string|array $model
+	 * @throws Lassi\App\Exception\InvalidInstanceReference
+	 * @return Lassi\App\Controller
 	 */
 	public function __construct(Lassi $lassi = null, $models = null) {
-		if ($lassi !== null) {
-			$this->lassi = $lassi;
-			$this->setApp($lassi->getApp());
+		if ($lassi === null) {
+			throw new InvalidInstanceReference('Invalid reference to Lassi\Lassi');
 		}
+
+		$this->lassi = $lassi;
+		$this->setApp($lassi->getApp());
 
 		if ( $models !== null )
 			$this->useModel($models);
@@ -31,7 +38,7 @@ class Controller {
 
 	/**
 	 * @param string|array $models
-	 * @return \Lassi\App\Controller
+	 * @return Lassi\App\Controller
 	 */
 	public function useModel($models) {
 		if (is_array($models))
@@ -41,22 +48,22 @@ class Controller {
 			$name = strtolower($models);
 			$class = sprintf('\Lassi\Model\%s', ucwords($name));
 			$this->{$name} = new $class;
-			$this->{$name}->setConnection($this->lassi->getEloquent());
+			$this->{$name}->setConnection($this->lassi->getApp());
 		}
 	}
 
 	/**
-	 * @return \Slim\Slim
+	 * @return Slim\Slim
 	 */
 	public function getApp() {
 		return $this->app;
 	}
 
 	/**
-	 * @param \Slim\Slim $app
-	 * @return \Lassi\App\Controller
+	 * @param Slim\Slim $app
+	 * @return Lassi\App\Controller
 	 */
-	public function setApp(\Slim\Slim $app) {
+	public function setApp(Slim\Slim $app) {
 		$this->app = $app;
 		return $this;
 	}
