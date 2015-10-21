@@ -23,6 +23,11 @@
             "Lassi\\": ""
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Lassi\\Test\\": "tests/"
+        }
+    },
     "scripts": {
         "post-root-package-install": [
             "php -r \"copy('.sample.env', '.dev.env');\"",

@@ -1,4 +1,4 @@
-<?php namespace Lassi\Tests;
+<?php namespace Lassi\Test;
 
 /**
  * Lassi unit test suite
