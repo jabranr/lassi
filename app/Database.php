@@ -7,15 +7,15 @@
  * @license MIT License
  */
 
-use Lassi\App\Exception\ResourceNotFoundException;
-use Illuminate\Database\Capsule\Manager as Capsule;
+use \Lassi\App\Exception\ResourceNotFoundException;
+use \Illuminate\Database\Capsule\Manager as Capsule;
 
 class Database {
 
-	/* @var Illuminate\Database\Capsule\Manager */
+	/* @var \Illuminate\Database\Capsule\Manager */
 	protected $capsule;
 
-	/* @var Lassi\App\Database */
+	/* @var \Lassi\App\Database */
 	protected static $instance;
 
 	/**
@@ -42,8 +42,8 @@ class Database {
 	/**
 	 * Set eloquent capsule
 	 *
-	 * @param Illuminate\Database\Capsule\Manager $capsule
-	 * @return Lassi\App\Database
+	 * @param \Illuminate\Database\Capsule\Manager $capsule
+	 * @return \Lassi\App\Database
 	 */
 	public function setCapsule(Capsule $capsule) {
 		$this->capsule = $capsule;
@@ -53,7 +53,7 @@ class Database {
 	/**
 	 * Get eloquent capsule
 	 *
-	 * @return Illuminate\Database\Capsule\Manager
+	 * @return \Illuminate\Database\Capsule\Manager
 	 */
 	public function getCapsule() {
 		return $this->capsule;
@@ -62,9 +62,9 @@ class Database {
 	/**
 	 * Setup eloquent database
 	 *
-	 * @param Illuminate\Database\Capsule\Manager $capsule
-	 * @throws Lassi\App\Exception\ResourceNotFoundException
-	 * @return Lassi\App\Database
+	 * @param \Illuminate\Database\Capsule\Manager $capsule
+	 * @throws \Lassi\App\Exception\ResourceNotFoundException
+	 * @return \Lassi\App\Database
 	 */
 	private function setupEloquent(Capsule $capsule) {
 

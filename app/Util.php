@@ -7,8 +7,8 @@
  * @license MIT License
  */
 
-use Lassi\App\Exception\ResourceNotFoundException;
-use Lassi\App\Exception\ResourceAccessException;
+use \Lassi\App\Exception\ResourceNotFoundException;
+use \Lassi\App\Exception\ResourceAccessException;
 
 class Util {
 

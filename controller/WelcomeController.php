@@ -7,8 +7,8 @@
  * @license MIT License
  */
 
-use Lassi\Lassi;
-use Lassi\Model\User;
+use \Lassi\Lassi;
+use \Lassi\Model\User;
 
 class WelcomeController extends \Lassi\App\Controller {
 

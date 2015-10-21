@@ -21,12 +21,12 @@ date_default_timezone_set('UTC');
 /**
  * Load configuration from .dev.env | .dist.env | .env
  */
-Lassi\App\Util::setupEnvironment(ROOT);
+\Lassi\App\Util::setupEnvironment(ROOT);
 
 /**
  * Set Lassi\Lassi instance
  */
-$lassi = Lassi\Lassi::getInstance(ROOT);
+$lassi = \Lassi\Lassi::getInstance(ROOT);
 
 /**
  * Set Slim\Slim instance
@@ -46,11 +46,11 @@ $app->hook('slim.before', function() use ($app) {
 /**
  * Load routes
  *
- * @throws Lassi\App\Exception\ResourceNotFoundException
+ * @throws \Lassi\App\Exception\ResourceNotFoundException
  */
 $routes = $lassi->getBase() . '/routes.php';
 if (!file_exists($routes) || !is_readable($routes)) {
-	throw new Lassi\App\Exception\ResourceNotFoundException('No routes file found.');
+	throw new \Lassi\App\Exception\ResourceNotFoundException('No routes file found.');
 }
 
 require_once $routes;
