@@ -8,6 +8,7 @@
  */
 
 require ROOT . '/app/Util.php';
+require ROOT . '/app/exception/LassiException.php';
 require ROOT . '/app/exception/ResourceNotFoundException.php';
 
 use \Lassi\App\Util;
