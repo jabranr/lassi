@@ -1,4 +1,4 @@
-<?php
+<?php namespace Lassi\Tests;
 
 /**
  * Lassi unit test suite
@@ -8,11 +8,7 @@
  * @license MIT License
  */
 
-require __DIR__ . '/../vendor/autoload.php';
-
-use \Lassi\Lassi;
-
-class LassiTest extends PHPUnit_Framework_TestCase {
+class LassiTest extends \PHPUnit_Framework_TestCase {
 	public $lassi;
 	public $config;
 
@@ -31,12 +27,11 @@ class LassiTest extends PHPUnit_Framework_TestCase {
 		unset($this->lassi);
 	}
 
-	/**
-	 * Initalize Lassi without setting configuration options
-	 *
-	 * @expectedException \Lassi\App\Exception\ResourceNotFoundException
-	 */
-	public function testException() {
-		$this->lassi = new Lassi;
+	public function testExample() {
+		$this->assertTrue(true, true);
 	}
 }
+
+
+
+
