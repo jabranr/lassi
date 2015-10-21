@@ -70,7 +70,7 @@ class Database {
 
 		// Throw exception if minimum requirements not met
 		if (!getenv('db_driver') || !getenv('db_name'))
-			throw new ResourceNotFound('App configurations not found.');
+			throw new ResourceNotFound('Database configurations not found.');
 
 		// Get capsule instance
 		$this->setCapsule($capsule);
