@@ -1,4 +1,5 @@
-# Lassi
+# Lassi [![Build Status](https://travis-ci.org/jabranr/lassi.svg?branch=master)](https://travis-ci.org/jabranr/lassi) [![Latest Stable Version](https://poser.pugx.org/lassi/lassi/v/stable.svg)](https://packagist.org/packages/lassi/lassi) [![Total Downloads](https://poser.pugx.org/lassi/lassi/downloads.svg)](https://packagist.org/packages/jabranr/lassi) [![Analytics](https://ga-beacon.appspot.com/UA-50688851-1/lassi)](https://github.com/igrigorik/ga-beacon)
+
 PHP boilerplate for quick projects using Slim Framework and Eloquent database.
 
 ![Lassi](https://cloud.githubusercontent.com/assets/2131246/10229125/66ff122e-686e-11e5-9351-d6e840c1917b.png)
