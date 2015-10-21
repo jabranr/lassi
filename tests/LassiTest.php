@@ -8,7 +8,7 @@
  * @license MIT License
  */
 
-require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use \Lassi\Lassi;
 
@@ -16,16 +16,27 @@ class LassiTest extends PHPUnit_Framework_TestCase {
 	public $lassi;
 	public $config;
 
+	/**
+	 * Constructor method
+	 */
 	public function setUp() {
 		$this->lassi = null;
 		$this->config = array();
 	}
 
+	/**
+	 * TearDown method
+	 */
 	public function tearDown() {
 		unset($this->lassi);
 	}
 
+	/**
+	 * Initalize Lassi without setting configuration options
+	 *
+	 * @expectedException \Lassi\App\Exception\ResourceNotFoundException
+	 */
 	public function testException() {
-		return true;
+		$this->lassi = new Lassi;
 	}
 }
