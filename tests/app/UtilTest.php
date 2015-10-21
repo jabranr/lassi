@@ -7,6 +7,8 @@
  * @license MIT License
  */
 
+require ROOT . '/app/Util.php';
+
 use \Lassi\App\Util;
 
 class UtilTest extends \PHPUnit_Framework_TestCase {
