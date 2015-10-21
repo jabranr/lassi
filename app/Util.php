@@ -16,7 +16,7 @@ class Util {
 	 * Set app env variables
 	 * @return void
 	 */
-	public static function setEnvVariables($root = '/') {
+	public static function setupEnvironment($root = '/', $remove = false) {
 		$configs = null;
 
 		// Set custom handler to catch errors as exceptions
@@ -56,13 +56,19 @@ class Util {
 		restore_error_handler();
 
 		$configs = explode("\n", trim($configs));
-		array_map(function($config) {
+		array_map(function($config) use ($remove) {
 
 			// Remove whitespaces
 			$config = preg_replace('(\s+)', '', $config);
 
-			// Add as global vars
-			putenv($config);
+			// Add/remove as global vars
+			if ( $remove ) {
+				$tuple = explode('=', $config);
+				putenv($tuple[0]);
+			}
+			else {
+				putenv($config);
+			}
 		}, $configs);
 	}
 }

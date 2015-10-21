@@ -21,7 +21,7 @@ date_default_timezone_set('UTC');
 /**
  * Load configuration from .dev.env | .dist.env | .env
  */
-Lassi\App\Util::setEnvVariables(ROOT);
+Lassi\App\Util::setupEnvironment(ROOT);
 
 /**
  * Set Lassi\Lassi instance
