@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-use Lassi\App\Exception\ResourceNotFound;
+use Lassi\App\Exception\ResourceNotFoundException;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Database {
@@ -63,14 +63,14 @@ class Database {
 	 * Setup eloquent database
 	 *
 	 * @param Illuminate\Database\Capsule\Manager $capsule
-	 * @throws Lassi\App\Exception\ResourceNotFound
+	 * @throws Lassi\App\Exception\ResourceNotFoundException
 	 * @return Lassi\App\Database
 	 */
 	private function setupEloquent(Capsule $capsule) {
 
 		// Throw exception if minimum requirements not met
 		if (!getenv('db_driver') || !getenv('db_name'))
-			throw new ResourceNotFound('Database configurations not found.');
+			throw new ResourceNotFoundException('Database configurations not found.');
 
 		// Get capsule instance
 		$this->setCapsule($capsule);

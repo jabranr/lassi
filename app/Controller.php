@@ -9,7 +9,7 @@
 
 use Slim\Slim;
 use Lassi\Lassi;
-use Lassi\App\Exception\InvalidInstanceReference;
+use Lassi\App\Exception\InvalidInstanceReferenceException;
 
 class Controller {
 
@@ -21,12 +21,12 @@ class Controller {
 
 	/**
 	 * @param string|array $model
-	 * @throws Lassi\App\Exception\InvalidInstanceReference
+	 * @throws Lassi\App\Exception\InvalidInstanceReferenceException
 	 * @return Lassi\App\Controller
 	 */
 	public function __construct(Lassi $lassi = null, $models = null) {
 		if ($lassi === null) {
-			throw new InvalidInstanceReference('Invalid reference to Lassi\Lassi');
+			throw new InvalidInstanceReferenceException('Invalid reference to Lassi\Lassi');
 		}
 
 		$this->lassi = $lassi;

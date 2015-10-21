@@ -46,11 +46,11 @@ $app->hook('slim.before', function() use ($app) {
 /**
  * Load routes
  *
- * @throws Lassi\App\Exception\ResourceNotFound
+ * @throws Lassi\App\Exception\ResourceNotFoundException
  */
 $routes = $lassi->getBase() . '/routes.php';
 if (!file_exists($routes) || !is_readable($routes)) {
-	throw new Lassi\App\Exception\ResourceNotFound('No routes file found.');
+	throw new Lassi\App\Exception\ResourceNotFoundException('No routes file found.');
 }
 
 require_once $routes;

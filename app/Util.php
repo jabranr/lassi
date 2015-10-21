@@ -7,8 +7,8 @@
  * @license MIT License
  */
 
-use Lassi\App\Exception\ResourceNotFound;
-use Lassi\App\Exception\ResourceAccessError;
+use Lassi\App\Exception\ResourceNotFoundException;
+use Lassi\App\Exception\ResourceAccessException;
 
 class Util {
 
@@ -30,26 +30,26 @@ class Util {
 		if ( file_exists($root . '/.dev.env') && is_readable($root . '/.dev.env') ) {
 			try {
 				$configs = file_get_contents($root . '/.dev.env');
-			} catch(ResourceAccessError $e) {
+			} catch(ResourceAccessException $e) {
 				die($e->getMessage());
 			}
 		}
 		else if ( file_exists($root . '/.dist.env') && is_readable($root . '/.dist.env') ) {
 			try {
 				$configs = file_get_contents($root . '/.dist.env');
-			} catch(ResourceAccessError $e) {
+			} catch(ResourceAccessException $e) {
 				die($e->getMessage());
 			}
 		}
 		else if ( file_exists($root . '/.env') && is_readable($root . '/.env') ) {
 			try {
 				$configs = file_get_contents($root . '/.env');
-			} catch(ResourceAccessError $e) {
+			} catch(ResourceAccessException $e) {
 				die($e->getMessage());
 			}
 		}
 		else {
-			throw new ResourceNotFound('No configuration found.');
+			throw new ResourceNotFoundException('No configuration found.');
 		}
 
 		// Restore original error handler

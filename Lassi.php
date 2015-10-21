@@ -15,9 +15,9 @@ use Slim\Slim;
 use Slim\LogWriter;
 use Lassi\App\Util;
 use Lassi\App\Database;
-use Lassi\App\Exception\InvalidResourcePath;
-use Lassi\App\Exception\ResourceAccessError;
-use Lassi\App\Exception\ResourceNotFound;
+use Lassi\App\Exception\InvalidResourcePathException;
+use Lassi\App\Exception\ResourceAccessException;
+use Lassi\App\Exception\ResourceNotFoundException;
 
 
 class Lassi {
@@ -127,13 +127,13 @@ class Lassi {
 	 *
 	 * @param string $path
 	 * @uses Slim\LogWriter
-	 * @throws Lassi\App\Exception\InvalidResourcePath
-	 * @throws Lassi\App\Exception\ResourceAccessError
+	 * @throws Lassi\App\Exception\InvalidResourcePathException
+	 * @throws Lassi\App\Exception\ResourceAccessException
 	 * @return Lassi\Lassi
 	 */
 	public function setLogger($path) {
 		if (!is_scalar($path)) {
-			throw new InvalidResourcePath('Invalid resource path for logs.');
+			throw new InvalidResourcePathException('Invalid resource path for logs.');
 		}
 
 		if ($resource = fopen($path, 'a')) {
@@ -141,7 +141,7 @@ class Lassi {
 			$this->getApp()->config('log.writer', new LogWriter($resource));
 		}
 		else {
-			throw new ResourceAccessError('Unable to create a resource at ' . $path);
+			throw new ResourceAccessException('Unable to create a resource at ' . $path);
 		}
 		return $this;
 	}
