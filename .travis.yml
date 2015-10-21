@@ -12,9 +12,5 @@ before_script:
   - git config --global user.email hello@jabran.me
   - composer self-update
   - composer install --prefer-source
-  - cp tests/.sample.env tests/.dev.env
-
-after_script:
-  - rm -rf tests/.dev.env
 
 script: phpunit --configuration phpunit.xml --coverage-text

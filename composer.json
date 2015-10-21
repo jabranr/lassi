@@ -25,7 +25,8 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"copy('.sample.env', '.dev.env');\""
+            "php -r \"copy('.sample.env', '.dev.env');\"",
+            "php -r \"copy('tests/.sample.env', 'tests/.dev.env');\""
         ]
     },
     "ignore": [
