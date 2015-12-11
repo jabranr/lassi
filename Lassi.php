@@ -13,11 +13,11 @@
 
 use Slim\Slim;
 use Slim\LogWriter;
-use \Lassi\App\Util;
-use \Lassi\App\Database;
-use \Lassi\App\Exception\InvalidResourcePathException;
-use \Lassi\App\Exception\ResourceAccessException;
-use \Lassi\App\Exception\ResourceNotFoundException;
+use Lassi\App\Util;
+use Lassi\App\Database;
+use Lassi\App\Exception\InvalidResourcePathException;
+use Lassi\App\Exception\ResourceAccessException;
+use Lassi\App\Exception\ResourceNotFoundException;
 
 
 class Lassi {
@@ -37,7 +37,7 @@ class Lassi {
 	/* @var Slim\Slim */
 	protected $app;
 
-	/* @var \Lassi\Lassi */
+	/* @var Lassi\Lassi */
 	protected static $instance;
 
 	/**
@@ -45,7 +45,7 @@ class Lassi {
 	 *
 	 * @param Slim\Slim $app
 	 * @param string $root
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function __construct($root = __DIR__) {
 		$this->setBase($root);
@@ -59,7 +59,7 @@ class Lassi {
 	 * Get a singleton class instance
 	 *
 	 * @param string $root
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public static function getInstance($root = __DIR__) {
 		if (! static::$instance instanceof \Lassi\Lassi)
@@ -72,7 +72,7 @@ class Lassi {
 	 *
 	 * @param string|array $key
 	 * @param string $value
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function setConfig($key, $value = null) {
 		if (is_array($key)) {
@@ -107,7 +107,7 @@ class Lassi {
 	 * Set root of application
 	 *
 	 * @param string $base
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function setBase($base) {
 		$this->base = $base;
@@ -129,7 +129,7 @@ class Lassi {
 	 * @uses Slim\LogWriter
 	 * @throws Lassi\App\Exception\InvalidResourcePathException
 	 * @throws Lassi\App\Exception\ResourceAccessException
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function setLogger($path) {
 		if (!is_scalar($path)) {
@@ -158,7 +158,7 @@ class Lassi {
 	 * Initiate and setup Slim
 	 *
 	 * @param array $args
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function setApp($args = array()) {
 		$this->setConfig(array_merge($args, $this->getConfig()));
@@ -179,7 +179,7 @@ class Lassi {
 	 *
 	 * @param string $name
 	 * @param object|class $class
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function add($name, $class) {
 		$this->getApp()->container->singleton($name, $class);
@@ -190,7 +190,7 @@ class Lassi {
 	 * Set path to log file
 	 *
 	 * @param string $path
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function setLogPath($path) {
 		$this->logPath = $path;
@@ -210,7 +210,7 @@ class Lassi {
 	 * Set path to route file
 	 *
 	 * @param string $path
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function setRoutePath($path) {
 		$this->routePath = $path;
