@@ -7,13 +7,13 @@
  * @license MIT License
  */
 
-use \Slim\Slim;
-use \Lassi\Lassi;
-use \Lassi\App\Exception\InvalidInstanceReferenceException;
+use Slim\Slim;
+use Lassi\Lassi;
+use Lassi\App\Exception\InvalidInstanceReferenceException;
 
 class Controller {
 
-	/** @var \Lassi\Lassi $lassi */
+	/** @var Lassi\Lassi $lassi */
 	protected $lassi;
 
 	/** @var Slim\Slim $app */
@@ -21,8 +21,8 @@ class Controller {
 
 	/**
 	 * @param string|array $model
-	 * @throws \Lassi\App\Exception\InvalidInstanceReferenceException
-	 * @return \Lassi\App\Controller
+	 * @throws Lassi\App\Exception\InvalidInstanceReferenceException
+	 * @return Lassi\App\Controller
 	 */
 	public function __construct(Lassi $lassi = null, $models = null) {
 		if ($lassi === null) {

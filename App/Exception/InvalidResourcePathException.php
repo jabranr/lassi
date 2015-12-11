@@ -1,7 +1,7 @@
 <?php namespace Lassi\App\Exception;
 
 /**
- * LassiException\InvalidResourcePathException
+ * Lassi\Exception\InvalidResourcePathException
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License

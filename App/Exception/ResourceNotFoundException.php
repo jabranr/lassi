@@ -1,7 +1,7 @@
 <?php namespace Lassi\App\Exception;
 
 /**
- * LassiException\ResourceNotFoundException
+ * Lassi\Exception\ResourceNotFoundException
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License

@@ -1,4 +1,4 @@
-<?php namespace Lassi\Test\App;
+<?php namespace Lassi\Tests\App;
 
 /**
  * Util Test Suite
@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-use \Lassi\App\Util;
+use Lassi\App\Util;
 
 class UtilTest extends \PHPUnit_Framework_TestCase {
 
@@ -37,7 +37,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test environment setup with incorrect base root
 	 *
-	 * @expectedException \Lassi\App\Exception\ResourceNotFoundException
+	 * @expectedException Lassi\App\Exception\ResourceNotFoundException
 	 */
 	public function testSetupEnvironmentWithoutRoot() {
 		Util::setupEnvironment();

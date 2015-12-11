@@ -1,8 +1,7 @@
 {
     "name": "jabranr/lassi",
     "description": "PHP boilerplate for quick projects based on Slim and Eloquent",
-    "version": "0.0.5",
-    "license": "MIT License",
+    "license": "MIT",
     "require": {
         "php": ">=5.5.0",
         "slim/slim": "^2.6",
@@ -20,7 +19,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Lassi\\": "./"
+            "Lassi\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lassi\\Tests\\": "tests"
         }
     },
     "scripts": {

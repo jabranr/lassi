@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Lassi - Small PHP framework for quick apps based on Slim and Eloquent
+ * Front controller
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License
