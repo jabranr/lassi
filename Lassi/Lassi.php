@@ -52,7 +52,7 @@ class Lassi {
 	public static function bootstrap() {
 
 		/* Load configuration from .dev.env | .dist.env | .env */
-		Util::setEnvVariables(dirname(__FILE__));
+		Util::setEnvVariables(dirname(__FILE__).'/..');
 
 		/* Get instances */
 		$lassi = static::getInstance();
@@ -75,7 +75,7 @@ class Lassi {
 	 * @return void
 	 */
 	private static function loadRoutes() {
-		$routes = dirname(__FILE__) . '/routes.php';
+		$routes = dirname(__FILE__) . '/../routes.php';
 		if (!file_exists($routes) || !is_readable($routes))
 			throw new NotFoundException('Routes not found.');
 
