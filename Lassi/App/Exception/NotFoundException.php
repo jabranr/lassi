@@ -1,4 +1,6 @@
-<?php namespace Lassi\App\Exception;
+<?php
+
+namespace Lassi\App\Exception;
 
 /**
  * Not Found Exception
@@ -9,4 +11,6 @@
 
 use \Exception;
 
-class NotFoundException extends Exception { }
+class NotFoundException extends Exception
+{
+}

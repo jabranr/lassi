@@ -1,4 +1,8 @@
-<?php namespace Lassi\Model;
+<?php
+
+namespace Lassi\Model;
+
+use \Illuminate\Database\Eloquent\Model;
 
 /**
  * User
@@ -6,7 +10,6 @@
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License
  */
-
-use \Illuminate\Database\Eloquent\Model;
-
-class User extends Model { }
+class User extends Model
+{
+}
