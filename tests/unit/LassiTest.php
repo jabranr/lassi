@@ -2,24 +2,13 @@
 
 namespace Lassi\Tests\Unit;
 
-use PHPUnit_Framework_TestCase;
 use Lassi\Lassi;
+use Lassi\App\Util;
 
-/**
- * Lassi Test
- *
- * @author Jabran Rafique <hello@jabran.me>
- * @version 0.0.4
- * @license MIT License
- */
+class LassiTest extends \PHPUnit_Framework_TestCase {
 
-class LassiTest extends PHPUnit_Framework_TestCase
-{
-	public function testGetInstanceReturnsLassiInstance()
-	{
-		// Setup
-		\Lassi\App\Util::setEnvVariables('.');
-
-		$this->assertInstanceOf('\Lassi\Lassi', Lassi::getInstance());
+	public function testGetInstanceReturnsLassiInstance() {
+		Util::setEnvVariables('.');
+		$this->assertInstanceOf('Lassi\Lassi', Lassi::getInstance());
 	}
 }

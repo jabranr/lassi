@@ -1,12 +1,12 @@
-<?php namespace Lassi\App\Exception;
+<?php
+
+namespace Lassi\App\Exception;
 
 /**
- * Not Found Exception
+ * Not found exception
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License
  */
 
-use \Exception;
-
-class NotFoundException extends Exception { }
+class NotFoundException extends \Exception { }

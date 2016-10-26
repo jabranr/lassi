@@ -1,4 +1,6 @@
-<?php namespace Lassi\App;
+<?php
+
+namespace Lassi\App;
 
 /**
  * Base Controller
@@ -7,31 +9,43 @@
  * @license MIT License
  */
 
-use \Lassi\Lassi;
+use Slim\Slim;
+use Lassi\Lassi;
 
 class Controller {
 
-	protected $lassi;
-	protected $app;
+	/**
+	 * @var Lassi\Lassi
+	 */
+	private $lassi;
 
 	/**
+	 * @var Slim\Slim
+	 */
+	private $app;
+
+	/**
+	 * Default constructor
+	 *
 	 * @param string|aray $model
-	 * @return \Lassi\App\Controller
+	 * @return Lassi\App\Controller
 	 */
 	public function __construct(Lassi $lassi = null, $models = null) {
 		if ($lassi !== null) {
-			$this->lassi = $lassi;
-			$this->setApp($lassi->getApp());
+			$this->setLassi($lassi);
+			$this->setApp($this->getLassi()->getApp());
 		}
 
-		if ( $models !== null )
+		if ($models !== null) {
 			$this->useModel($models);
-		return $this;
+		}
 	}
 
 	/**
+	 * Set model(s) to use
+	 *
 	 * @param string|array $models
-	 * @return \Lassi\App\Controller
+	 * @return Lassi\App\Controller
 	 */
 	public function useModel($models) {
 		if (is_array($models))
@@ -43,21 +57,37 @@ class Controller {
 			$this->{$name} = new $class;
 			$this->{$name}->setConnection($this->lassi->getEloquent());
 		}
+
+		return $this;
 	}
 
 	/**
-	 * @return \Slim\Slim
+     * @codeCoverageIgnore
 	 */
 	public function getApp() {
 		return $this->app;
 	}
 
 	/**
-	 * @param \Slim\Slim $app
-	 * @return \Lassi\App\Controller
+     * @codeCoverageIgnore
 	 */
-	public function setApp(\Slim\Slim $app) {
+	public function setApp(Slim $app) {
 		$this->app = $app;
 		return $this;
 	}
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getLassi() {
+       return $this->lassi;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function setLassi(Lassi $lassi) {
+        $this->lassi = $lassi;
+        return $this;
+    }
 }

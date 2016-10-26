@@ -1,4 +1,6 @@
-<?php namespace Lassi\Controller;
+<?php
+
+namespace Lassi\Controller;
 
 /**
  * Welcome controller
@@ -7,10 +9,11 @@
  * @license MIT License
  */
 
-use \Lassi\Lassi;
-use \Lassi\Model\User;
+use Lassi\Lassi;
+use Lassi\Model\User;
+use Lassi\App\Controller;
 
-class WelcomeController extends \Lassi\App\Controller {
+class WelcomeController extends Controller {
 
 	public function __construct() {
 

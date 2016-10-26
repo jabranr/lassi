@@ -1,4 +1,6 @@
-<?php namespace Lassi\App;
+<?php
+
+namespace Lassi\App;
 
 /**
  * Database
@@ -7,58 +9,67 @@
  * @license MIT License
  */
 
-use \Lassi\App\Exception\NotFoundException;
-use \Illuminate\Database\Capsule\Manager as Capsule;
+use Lassi\App\Database;
+use Lassi\App\Exception\NotFoundException;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Database {
 
-	/** @var \Illuminate\Database\Capsule\Manager */
-	protected $capsule;
+	/**
+	 * @var Illuminate\Database\Capsule\Manager
+	 */
+	private $capsule;
 
-	/** @var Lassi\App\Database */
+	/**
+	 * @var Lassi\App\Database
+	 */
 	protected static $instance;
 
 	/**
-	 * @return \Lassi\App\Database
+	 * @return Lassi\App\Database
 	 */
 	public function __construct() {
 		$this->_makeEloquent(new Capsule());
-		return $this;
 	}
 
 	/**
 	 * Get instance of current class
-	 * @return \Lassi\App\Database
+	 *
+	 * @return Lassi\App\Database
 	 */
 	public static function getInstance() {
 		if (! static::$instance instanceof Database) {
 			static::$instance = new Database();
 		}
+
 		return static::$instance;
 	}
 
 	/**
 	 * Get instance of capsule
-	 * @return \Illuminate\Database\Capsule\Manager
+	 * @deprecated since 0.0.5
+	 * @return Illuminate\Database\Capsule\Manager
 	 */
 	public function capsule() {
-		return $this->capsule;
+		return $this->getCapsule();
 	}
 
 	/**
 	 * Setup eloquent database
-	 * @param \Illuminate\Database\Capsule\Manager $capsule
-	 * @throws \Lassi\App\Exception\NotFoundException
-	 * @return \Lassi\App\Database
+	 *
+	 * @param Illuminate\Database\Capsule\Manager $capsule
+	 * @throws Lassi\App\Exception\NotFoundException
+	 * @return Lassi\App\Database
 	 */
 	private function _makeEloquent(Capsule $capsule) {
 
 		// Throw exception if minimum requirements not met
-		if (!getenv('db_driver') || !getenv('db_name'))
+		if (!getenv('db_driver') || !getenv('db_name')) {
 			throw new NotFoundException('App configurations not found.');
+		}
 
 		// Get capsule instance
-		$this->capsule = $capsule;
+		$this->setCapsule($capsule);
 
 		// Cache db driver
 		$db_driver = getenv('db_driver');
@@ -80,13 +91,29 @@ class Database {
 		}
 
 		// Setup connection
-		$this->capsule->addConnection($configs);
+		$this->getCapsule()->addConnection($configs);
 
 		// Set as global
-		$this->capsule->setAsGlobal();
+		$this->getCapsule()->setAsGlobal();
 
 		// Boot eloquent
-		$this->capsule->bootEloquent();
+		$this->getCapsule()->bootEloquent();
+
 		return $this;
 	}
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getCapsule() {
+       return $this->capsule;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function setCapsule(Capsule $capsule) {
+        $this->capsule = $capsule;
+        return $this;
+    }
 }
