@@ -3,10 +3,10 @@
 namespace Lassi\App\Exception;
 
 /**
- * Not found exception
+ * Unreadable exception
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License
  */
 
-class NotFoundException extends \Exception { }
+class UnreadableException extends \RuntimeException { }

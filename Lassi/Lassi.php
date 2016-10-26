@@ -6,29 +6,37 @@ namespace Lassi;
  * Lassi
  *
  * @author Jabran Rafique <hello@jabran.me>
- * @version 0.0.4
  * @license MIT License
  */
 
-use \Slim\Slim;
-use \Lassi\App\Util;
-use \Lassi\App\Database;
-use \Lassi\App\Exception\NotFoundException;
+use Slim\Slim;
+use Lassi\Lassi;
+use Lassi\App\Util;
+use Lassi\App\Database;
+use Lassi\App\Exception\NotFoundException;
 
 class Lassi {
 
-	/** @var \Slim\Slim */
+	/**
+	 * @var Slim\Slim
+	 */
 	protected $app;
 
-	/** @var \Lassi\App\Database */
+	/**
+	 * @var Lassi\App\Database
+	 */
 	protected $eloquent;
 
-	/** @var \Lassi\Lassi */
+	/**
+	 * @var Lassi\Lassi
+	 */
 	protected static $instance;
 
 	/**
-	 * @param \Slim\Slim $app
-	 * @return \Lassi\Lassi
+	 * Defualt constructor
+	 *
+	 * @param Slim\Slim $app
+	 * @return Lassi\Lassi
 	 */
 	public function __construct(Slim $app = null) {
 		$this->setApp($app, array('templates.path' => '../view'));
@@ -37,16 +45,19 @@ class Lassi {
 	}
 
 	/**
-	 * @return \Lassi\Lassi
+	 * Get a singelton based Databse object
+	 *
+	 * @return Lassi\Lassi
 	 */
 	public static function getInstance() {
-		if (! static::$instance instanceof \Lassi\Lassi)
-			static::$instance = new \Lassi\Lassi;
+		if (! static::$instance instanceof Lassi)
+			static::$instance = new Lassi;
 		return static::$instance;
 	}
 
 	/**
 	 * Bootstrap the framework
+	 *
 	 * @return void
 	 */
 	public static function bootstrap() {
@@ -72,21 +83,26 @@ class Lassi {
 
 	/**
 	 * Load framework app routes
+	 *
+	 * @throws Lassi\App\Exception\NotFoundException
 	 * @return void
 	 */
 	private static function loadRoutes() {
 		$routes = dirname(__FILE__) . '/../routes.php';
-		if (!file_exists($routes) || !is_readable($routes))
+
+		if (!file_exists($routes) || !is_readable($routes)) {
 			throw new NotFoundException('Routes not found.');
+		}
 
 		// Get Slim instance
-		$app = \Lassi\Lassi::getInstance()->getApp();
+		$app = Lassi::getInstance()->getApp();
 		require_once $routes;
 	}
 
 	/**
 	 * Set eloquent database
-	 * @return \Lassi\Lassi
+	 *
+	 * @return Lassi\Lassi
 	 */
 	public function setEloquent() {
 		$this->eloquent = Database::getInstance();
@@ -95,7 +111,8 @@ class Lassi {
 
 	/**
 	 * Get eloquent database instance
-	 * @return \Lassi\App\Database
+	 *
+	 * @return Lassi\App\Database
 	 */
 	public function getEloquent() {
 		return $this->eloquent;
@@ -103,17 +120,19 @@ class Lassi {
 
 	/**
 	 * Set app instance
-	 * @param \Slim\Slim $app
+	 *
+	 * @param Slim\Slim $app
 	 * @param array $args
-	 * @return \Lassi\Lassi
+	 * @return Lassi\Lassi
 	 */
 	public function setApp(Slim $app = null, $args = array()) {
-		$this->app = $app ? $app : new Slim($args);
+		$this->app = $app ? : new Slim($args);
 	}
 
 	/**
 	 * Get app instance
-	 * @return \Slim\Slim;
+	 *
+	 * @return Slim\Slim;
 	 */
 	public function getApp() {
 		return $this->app;

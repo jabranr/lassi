@@ -1,4 +1,6 @@
-<?php namespace Lassi\App;
+<?php
+
+namespace Lassi\App;
 
 /**
  * Util
@@ -7,12 +9,15 @@
  * @license MIT License
  */
 
-use \Exception;
+use Lassi\App\Exception\NotFoundException;
+use Lassi\App\Exception\UnreadableException;
 
 class Util {
 
 	/**
-	 * Set app env variables
+	 * Set app environment variables
+	 *
+	 * @param string $root
 	 * @return void
 	 */
 	public static function setEnvVariables($root = '/') {
@@ -22,40 +27,28 @@ class Util {
 		set_error_handler(
 		    create_function(
 		        '$severity, $message, $file, $line',
-		        'throw new ErrorException($message, $severity, $severity, $file, $line);'
+		        'throw new \ErrorException($message, $severity, $severity, $file, $line);'
 		    )
 		);
 
 		if ( file_exists($root . '/.dev.env') && is_readable($root . '/.dev.env') ) {
-			try {
-				$configs = file_get_contents($root . '/.dev.env');
-			} catch(Exception $e) {
-				die($e->getMessage());
-			}
+			$configs = file_get_contents($root . '/.dev.env');
 		}
 		else if ( file_exists($root . '/.dist.env') && is_readable($root . '/.dist.env') ) {
-			try {
-				$configs = file_get_contents($root . '/.dist.env');
-			} catch(Exception $e) {
-				die($e->getMessage());
-			}
+			$configs = file_get_contents($root . '/.dist.env');
 		}
 		else if ( file_exists($root . '/.test.env') && is_readable($root . '/.test.env') ) {
-			try {
-				$configs = file_get_contents($root . '/.test.env');
-			} catch(Exception $e) {
-				die($e->getMessage());
-			}
+			$configs = file_get_contents($root . '/.test.env');
 		}
 		else if ( file_exists($root . '/.env') && is_readable($root . '/.env') ) {
-			try {
-				$configs = file_get_contents($root . '/.env');
-			} catch(Exception $e) {
-				die($e->getMessage());
-			}
+			$configs = file_get_contents($root . '/.env');
 		}
 		else {
-			throw new \Lassi\App\Exception\NotFoundException('No configuration found.');
+			throw new NotFoundException('No configuration file found.');
+		}
+
+		if (false === $configs || null !== error_get_last()) {
+			throw new UnreadableException('Configuration not readable.');
 		}
 
 		// Restore original error handler
@@ -67,7 +60,7 @@ class Util {
 			// Remove whitespaces
 			$config = preg_replace('(\s+)', '', $config);
 
-			// Add as global vars
+			// Add as environment variables
 			putenv($config);
 		}, $configs);
 	}

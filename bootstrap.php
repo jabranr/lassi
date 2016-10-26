@@ -1,5 +1,7 @@
 <?php
 
+use Lassi\Lassi;
+
 /**
  * Bootstrap the boilerplate
  *
@@ -13,5 +15,5 @@ defined('ROOT') or die('Unexpected request');
 /**
  * Setup Lassi with Slim framework and Eloquent
  */
-\Lassi\Lassi::bootstrap();
+Lassi::bootstrap();
 

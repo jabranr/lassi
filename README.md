@@ -1,4 +1,4 @@
-# Lassi
+# Lassi [![Build Status](https://travis-ci.org/jabranr/lassi.svg?branch=master)](https://travis-ci.org/jabranr/lassi)
 PHP boilerplate for quick projects using Slim Framework and Eloquent database.
 
 ![Lassi](https://cloud.githubusercontent.com/assets/2131246/10229125/66ff122e-686e-11e5-9351-d6e840c1917b.png)
@@ -24,9 +24,9 @@ By default `.sample.env` file has charset and collation configurations set to `U
 Use the `routes.php` in root directory to setup routes. You would setup routes as you do in Slim Framework. Afterall it is using Slim Framework in background. For more on setting up routes, see [Slim Framework Documentation](http://docs.slimframework.com/routing/overview/).
 
 #### Structure
-**Controllers:** The Controllers are to be saved in `controller/` directory. All Controllers must extend `\Lassi\App\Controller` base controller class and pass the `\Lassi\Lassi` instance to its constructor using `\Lassi\Lassi::getInstance()` method. You can also add relevant Model(s) using `useModel(string|array $model)` method. You can name the controller as you like but do keep up with best practices.
+**Controllers:** The Controllers are to be saved in `controller/` directory. All Controllers must extend `Lassi\App\Controller` base controller class and pass the `LassiLassi` instance to its constructor using `LassiLassi::getInstance()` method. You can also add relevant Model(s) using `useModel(string|array $model)` method. You can name the controller as you like but do keep up with best practices.
 
-**Models:** All relevant Models are saved in `model/` directory and must extend the `\Illuminate\Database\Eloquent\Model` class. You would use models as you do in Eloquent. For more on setting up models and use other options, see [Eloquent database quick start guide](https://github.com/illuminate/database).
+**Models:** All relevant Models are saved in `model/` directory and must extend the `Illuminate\Database\Eloquent\Model` class. You would use models as you do in Eloquent. For more on setting up models and use other options, see [Eloquent database quick start guide](https://github.com/illuminate/database).
 
 There is an example controller and model in mentioned directories for you to get started with.
 
@@ -97,7 +97,7 @@ $app->get('/goodbye', function() use ($app) {
 Add a new public method `goodbye()` to `WelcomeController.php` in `/controller` directory.
 
 ```php
-class WelcomeController extends \Lassi\App\Controller {
+class WelcomeController extends Lassi\App\Controller {
 	...
 
 	public function goodbye() {
@@ -109,7 +109,7 @@ class WelcomeController extends \Lassi\App\Controller {
 Modify the route's definition to use controller.
 
 ```php
-$app->get('/goodbye', '\Lassi\Controller\WelcomeController:goodbye');
+$app->get('/goodbye', 'Lassi\Controller\WelcomeController:goodbye');
 ```
 
 For complete reference, see [Slim Framework documentation](http://docs.slimframework.com/)
@@ -142,14 +142,14 @@ Using Eloquent is straight forward after a connection is established. To learn m
 
 **Create a table using Eloquent**
 
-You can use the `\Illuminate\Database\Capsule\Manager::schema()` method to setup database migrations. Here is an example to create a `lassi_users` table.
+You can use the `Illuminate\Database\Capsule\Manager::schema()` method to setup database migrations. Here is an example to create a `lassi_users` table.
 
 ```php
-class WelcomeController extends \Lassi\App\Controller {
+class WelcomeController extends Lassi\App\Controller {
 	...
 
 	public function makeUserTable() {
-		\Illuminate\Database\Capsule\Manager::schema()->create('users', function($table) {
+		Illuminate\Database\Capsule\Manager::schema()->create('users', function($table) {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('email')->unique();
@@ -159,27 +159,27 @@ class WelcomeController extends \Lassi\App\Controller {
 }
 ```
 
-Calling `\Lassi\Controller\WelcomeController->makeUserTable()` will create a new table in database.
+Calling `Lassi\Controller\WelcomeController->makeUserTable()` will create a new table in database.
 
 A model can be added to a controller using `useModel()` method in controller's constructor i.e.
 
 ```php
-class WelcomeController extends \Lassi\App\Controller {
+class WelcomeController extends Lassi\App\Controller {
 	public function __construct() {
-		parent::__construct(\Lassi\Lassi::getInstance());
+		parent::__construct(LassiLassi::getInstance());
 		$this->useModel('user');
 	}
 }
 ```
 
-or it can directly be accessed using `\Lassi\Model` namespace i.e.
+or it can directly be accessed using `Lassi\Model` namespace i.e.
 
 ```php
-class WelcomeController extends \Lassi\App\Controller {
+class WelcomeController extends Lassi\App\Controller {
 	...
 
 	public function create() {
-		$user = new \Lassi\Model\User;
+		$user = new Lassi\Model\User;
 		$user->name = 'Jabran Rafique';
 		$user->email = 'hello@jabran.me';
 		$user->save();
@@ -190,11 +190,11 @@ class WelcomeController extends \Lassi\App\Controller {
 Getting info from Eloquent and pass it to template.
 
 ```php
-class WelcomeController extends \Lassi\App\Controller {
+class WelcomeController extends Lassi\App\Controller {
 	...
 
 	public function goodbye() {
-		$user = \Lassi\Model\User::find(1);
+		$user = Lassi\Model\User::find(1);
 		return $this->app->render('goodbye.php', array('user' => $user));
 	}
 }
@@ -208,4 +208,4 @@ I would love to get some help and extend this boilerplate further so it can be u
 
 # License
 MIT License
-&copy; 2015 Jabran Rafique | [@jabranr](https://twitter.com/jabranr)
+&copy; 2015 &ndash; 2016 Jabran Rafique ([@jabranr](https://twitter.com/jabranr)) | [Contributors](https://github.com/jabranr/lassi/graphs/contributors)
