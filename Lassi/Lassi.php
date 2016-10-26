@@ -1,4 +1,6 @@
-<?php namespace Lassi;
+<?php
+
+namespace Lassi;
 
 /**
  * Lassi

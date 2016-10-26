@@ -20,7 +20,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Lassi\\": "./"
+            "Lassi\\": "Lassi/"
         }
     },
     "autoload-dev": {
