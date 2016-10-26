@@ -4,6 +4,7 @@ Thumbs.db
 *.lock
 *.env
 !.sample.env
+!.test.env
 bower_components/
 node_modules/
 vendor/
