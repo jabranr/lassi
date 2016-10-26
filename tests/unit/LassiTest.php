@@ -18,7 +18,7 @@ class LassiTest extends PHPUnit_Framework_TestCase
 	public function testGetInstanceReturnsLassiInstance()
 	{
 		// Setup
-		\Lassi\App\Util::setEnvVariables(__DIR__.'/../config');
+		\Lassi\App\Util::setEnvVariables('.');
 
 		$this->assertInstanceOf('\Lassi\Lassi', Lassi::getInstance());
 	}
