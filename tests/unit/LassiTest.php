@@ -1,6 +1,6 @@
 <?php
 
-namespace Lassi\Tests;
+namespace Lassi\Tests\Unit;
 
 use PHPUnit_Framework_TestCase;
 use Lassi\Lassi;
