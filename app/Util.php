@@ -40,6 +40,13 @@ class Util {
 				die($e->getMessage());
 			}
 		}
+		else if ( file_exists($root . '/.test.env') && is_readable($root . '/.test.env') ) {
+			try {
+				$configs = file_get_contents($root . '/.test.env');
+			} catch(Exception $e) {
+				die($e->getMessage());
+			}
+		}
 		else if ( file_exists($root . '/.env') && is_readable($root . '/.env') ) {
 			try {
 				$configs = file_get_contents($root . '/.env');
