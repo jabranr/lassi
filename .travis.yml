@@ -25,6 +25,7 @@ install:
 
 script:
 - if [[ "$COLLECT_COVERAGE" == "true" ]]; then php vendor/phpunit/phpunit/phpunit --coverage-clover build/logs/clover.xml; else php vendor/phpunit/phpunit/phpunit; fi
+# - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 Lassi/
 
 after_script:
 - if [[ "$COLLECT_COVERAGE" == "true" ]]; then php vendor/bin/coveralls; fi

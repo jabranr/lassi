@@ -8,5 +8,6 @@ namespace Lassi\App\Exception;
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License
  */
-
-class NotFoundException extends \Exception { }
+class NotFoundException extends \Exception
+{
+}

@@ -2,139 +2,147 @@
 
 namespace Lassi;
 
+use Slim\Slim;
+use Lassi\App\Util;
+use Lassi\App\Database;
+use Lassi\App\Exception\NotFoundException;
+
 /**
  * Lassi
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License
  */
+class Lassi
+{
+    /**
+     * @var Slim
+     */
+    protected $app;
 
-use Slim\Slim;
-use Lassi\Lassi;
-use Lassi\App\Util;
-use Lassi\App\Database;
-use Lassi\App\Exception\NotFoundException;
+    /**
+     * @var Database
+     */
+    protected $eloquent;
 
-class Lassi {
+    /**
+     * @var $this
+     */
+    protected static $instance;
 
-	/**
-	 * @var Slim\Slim
-	 */
-	protected $app;
+    /**
+     * Default constructor
+     *
+     * @param Slim $app
+     */
+    public function __construct(Slim $app = null)
+    {
+        $this->setApp($app, array('templates.path' => '../view'));
+        $this->setEloquent();
+        return $this;
+    }
 
-	/**
-	 * @var Lassi\App\Database
-	 */
-	protected $eloquent;
+    /**
+     * Get a singleton based Database object
+     *
+     * @return $this
+     */
+    public static function getInstance()
+    {
+        if (!static::$instance instanceof Lassi) {
+            static::$instance = new Lassi;
+        }
+        return static::$instance;
+    }
 
-	/**
-	 * @var Lassi\Lassi
-	 */
-	protected static $instance;
+    /**
+     * Bootstrap the framework
+     *
+     * @return void
+     */
+    public static function bootstrap()
+    {
+        /* Load configuration from .dev.env | .dist.env | .env */
+        Util::setEnvVariables(dirname(__FILE__) . '/..');
 
-	/**
-	 * Defualt constructor
-	 *
-	 * @param Slim\Slim $app
-	 * @return Lassi\Lassi
-	 */
-	public function __construct(Slim $app = null) {
-		$this->setApp($app, array('templates.path' => '../view'));
-		$this->setEloquent();
-		return $this;
-	}
+        /* Get instances */
+        $lassi = static::getInstance();
+        $slim = $lassi->getApp();
 
-	/**
-	 * Get a singelton based Databse object
-	 *
-	 * @return Lassi\Lassi
-	 */
-	public static function getInstance() {
-		if (! static::$instance instanceof Lassi)
-			static::$instance = new Lassi;
-		return static::$instance;
-	}
+        /* Add base URL to all views for assets management */
+        $slim->hook('slim.before', function () use ($slim) {
+            $slim->view()->appendData(array('baseUrl' => getenv('base_url')));
+        });
 
-	/**
-	 * Bootstrap the framework
-	 *
-	 * @return void
-	 */
-	public static function bootstrap() {
+        /* Load routes */
+        static::loadRoutes();
 
-		/* Load configuration from .dev.env | .dist.env | .env */
-		Util::setEnvVariables(dirname(__FILE__).'/..');
+        /* Run Slim framework */
+        $slim->run();
+    }
 
-		/* Get instances */
-		$lassi = static::getInstance();
-		$slim = $lassi->getApp();
+    /**
+     * Load framework app routes
+     *
+     * @return void
+     *
+     * @throws NotFoundException
+     */
+    private static function loadRoutes()
+    {
+        $routes = dirname(__FILE__) . '/../routes.php';
 
-		/* Add base URL to all views for assets management */
-		$slim->hook('slim.before', function() use ($slim) {
-			$slim->view()->appendData(array('baseUrl' => getenv('base_url')));
-		});
+        if (!file_exists($routes) || !is_readable($routes)) {
+            throw new NotFoundException('Routes not found.');
+        }
 
-		/* Load routes */
-		static::loadRoutes();
+        // Get Slim instance
+        $app = Lassi::getInstance()->getApp();
 
-		/* Run Slim framework */
-		$slim->run();
-	}
+        require_once $routes;
+    }
 
-	/**
-	 * Load framework app routes
-	 *
-	 * @throws Lassi\App\Exception\NotFoundException
-	 * @return void
-	 */
-	private static function loadRoutes() {
-		$routes = dirname(__FILE__) . '/../routes.php';
+    /**
+     * Set eloquent database
+     *
+     * @return $this
+     */
+    public function setEloquent()
+    {
+        $this->eloquent = Database::getInstance();
+        return $this;
+    }
 
-		if (!file_exists($routes) || !is_readable($routes)) {
-			throw new NotFoundException('Routes not found.');
-		}
+    /**
+     * Get eloquent database instance
+     *
+     * @return Database
+     */
+    public function getEloquent()
+    {
+        return $this->eloquent;
+    }
 
-		// Get Slim instance
-		$app = Lassi::getInstance()->getApp();
-		require_once $routes;
-	}
+    /**
+     * Set app instance
+     *
+     * @param Slim $app
+     * @param array $args
+     *
+     * @return $this
+     */
+    public function setApp(Slim $app = null, $args = array())
+    {
+        $this->app = $app ?: new Slim($args);
+    }
 
-	/**
-	 * Set eloquent database
-	 *
-	 * @return Lassi\Lassi
-	 */
-	public function setEloquent() {
-		$this->eloquent = Database::getInstance();
-		return $this;
-	}
-
-	/**
-	 * Get eloquent database instance
-	 *
-	 * @return Lassi\App\Database
-	 */
-	public function getEloquent() {
-		return $this->eloquent;
-	}
-
-	/**
-	 * Set app instance
-	 *
-	 * @param Slim\Slim $app
-	 * @param array $args
-	 * @return Lassi\Lassi
-	 */
-	public function setApp(Slim $app = null, $args = array()) {
-		$this->app = $app ? : new Slim($args);
-	}
-
-	/**
-	 * Get app instance
-	 *
-	 * @return Slim\Slim;
-	 */
-	public function getApp() {
-		return $this->app;
-	}
+    /**
+     * Get app instance
+     *
+     * @return Slim
+     */
+    public function getApp()
+    {
+        return $this->app;
+    }
 }

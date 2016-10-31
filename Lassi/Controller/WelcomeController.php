@@ -2,33 +2,32 @@
 
 namespace Lassi\Controller;
 
+use Lassi\Lassi;
+use Lassi\App\Controller;
+
 /**
  * Welcome controller
  *
  * @author Jabran Rafique <hello@jabran.me>
  * @license MIT License
  */
+class WelcomeController extends Controller
+{
+    public function __construct()
+    {
+        /**
+         * Set app instance for parent class
+         */
+        parent::__construct(Lassi::getInstance());
 
-use Lassi\Lassi;
-use Lassi\Model\User;
-use Lassi\App\Controller;
+        /**
+         * Set a single model or an array of models
+         */
+        $this->useModel('user');
+    }
 
-class WelcomeController extends Controller {
-
-	public function __construct() {
-
-		/**
-		 * Set app instance for parent class
-		 */
-		parent::__construct(Lassi::getInstance());
-
-		/**
-		 * Set a single model or an array of models
-		 */
-		$this->useModel('user');
-	}
-
-	public function welcome() {
-		return $this->app->render('welcome.php');
-	}
+    public function welcome()
+    {
+        return $this->getApp()->render('welcome.php');
+    }
 }
