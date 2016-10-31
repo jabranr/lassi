@@ -2,9 +2,8 @@
 
 namespace Lassi\App;
 
-use Illuminate\Database\Capsule\Manager;
-use \Lassi\App\Exception\NotFoundException;
-use \Illuminate\Database\Capsule\Manager as Capsule;
+use Lassi\App\Exception\NotFoundException;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 /**
  * Database
@@ -14,24 +13,23 @@ use \Illuminate\Database\Capsule\Manager as Capsule;
  */
 class Database
 {
-    /**
-     * @var \Illuminate\Database\Capsule\Manager
-     */
-    protected $capsule;
 
     /**
-     * @var Database
+     * @var Capsule
+     */
+    private $capsule;
+
+    /**
+     * @var $this
      */
     protected static $instance;
 
     /**
-     * @return Database
+     * Database constructor.
      */
     public function __construct()
     {
         $this->makeEloquent(new Capsule());
-
-        return $this;
     }
 
     /**
@@ -44,23 +42,27 @@ class Database
         if (!static::$instance instanceof Database) {
             static::$instance = new Database();
         }
+
         return static::$instance;
     }
 
     /**
      * Get instance of capsule
      *
-     * @return Manager
+     * @deprecated since 0.0.5
+     *
+     * @return Capsule
      */
     public function capsule()
     {
-        return $this->capsule;
+        return $this->getCapsule();
     }
 
     /**
      * Setup eloquent database
      *
-     * @param Manager $capsule
+     * @param Capsule $capsule
+     *
      * @throws NotFoundException
      *
      * @return $this
@@ -73,7 +75,7 @@ class Database
         }
 
         // Get capsule instance
-        $this->capsule = $capsule;
+        $this->setCapsule($capsule);
 
         // Cache db driver
         $db_driver = getenv('db_driver');
@@ -101,13 +103,37 @@ class Database
         }
 
         // Setup connection
-        $this->capsule->addConnection($configs);
+        $this->getCapsule()->addConnection($configs);
 
         // Set as global
-        $this->capsule->setAsGlobal();
+        $this->getCapsule()->setAsGlobal();
 
         // Boot eloquent
-        $this->capsule->bootEloquent();
+        $this->getCapsule()->bootEloquent();
+
+        return $this;
+    }
+
+    /**
+     * @return Capsule
+     *
+     * @codeCoverageIgnore
+     */
+    public function getCapsule()
+    {
+        return $this->capsule;
+    }
+
+    /**
+     * @param Capsule $capsule
+     *
+     * @return $this
+     *
+     * @codeCoverageIgnore
+     */
+    public function setCapsule(Capsule $capsule)
+    {
+        $this->capsule = $capsule;
         return $this;
     }
 }

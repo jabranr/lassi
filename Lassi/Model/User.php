@@ -2,7 +2,7 @@
 
 namespace Lassi\Model;
 
-use \Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * User

@@ -2,8 +2,8 @@
 
 namespace Lassi\App;
 
-use \Lassi\Lassi;
 use Slim\Slim;
+use Lassi\Lassi;
 
 /**
  * Base Controller
@@ -13,32 +13,40 @@ use Slim\Slim;
  */
 class Controller
 {
-    protected $lassi;
-    protected $app;
+    /**
+     * @var Lassi
+     */
+    private $lassi;
 
     /**
-     * @param Lassi $lassi
-     * @param string|array $models
+     * @var Slim
+     */
+    private $app;
+
+    /**
+     * Controller constructor.
      *
-     * @return \Lassi\App\Controller
+     * @param Lassi|null $lassi
+     * @param null|array|string $models
      */
     public function __construct(Lassi $lassi = null, $models = null)
     {
         if ($lassi !== null) {
-            $this->lassi = $lassi;
-            $this->setApp($lassi->getApp());
+            $this->setLassi($lassi);
+            $this->setApp($this->getLassi()->getApp());
         }
 
         if ($models !== null) {
             $this->useModel($models);
         }
-        return $this;
     }
 
     /**
+     * Set model(s) to use
+     *
      * @param string|array $models
      *
-     * @return \Controller
+     * @return $this
      */
     public function useModel($models)
     {
@@ -52,23 +60,56 @@ class Controller
             $this->{$name} = new $class;
             $this->{$name}->setConnection($this->lassi->getEloquent());
         }
+
+        return $this;
     }
+
 
     /**
      * @return Slim
+     *
+     * @codeCoverageIgnore
      */
     public function getApp()
     {
         return $this->app;
     }
 
+
     /**
      * @param Slim $app
-     * @return Controller
+     *
+     * @return $this
+     *
+     * @codeCoverageIgnore
      */
     public function setApp(Slim $app)
     {
         $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * @return Lassi
+     *
+     * @codeCoverageIgnore
+     */
+    public function getLassi()
+    {
+        return $this->lassi;
+    }
+
+
+    /**
+     * @param Lassi $lassi
+     *
+     * @return $this
+     *
+     * @codeCoverageIgnore
+     */
+    public function setLassi(Lassi $lassi)
+    {
+        $this->lassi = $lassi;
         return $this;
     }
 }

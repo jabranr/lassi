@@ -2,8 +2,8 @@
 
 namespace Lassi\Controller;
 
+use Lassi\Lassi;
 use Lassi\App\Controller;
-use \Lassi\Lassi;
 
 /**
  * Welcome controller
@@ -13,7 +13,6 @@ use \Lassi\Lassi;
  */
 class WelcomeController extends Controller
 {
-
     public function __construct()
     {
         /**
@@ -29,6 +28,6 @@ class WelcomeController extends Controller
 
     public function welcome()
     {
-        return $this->app->render('welcome.php');
+        return $this->getApp()->render('welcome.php');
     }
 }
