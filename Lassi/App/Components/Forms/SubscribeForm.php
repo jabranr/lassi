@@ -1,4 +1,5 @@
 <?php  namespace App\Components\Forms;
+
 use App\Components\Validation\FormValidator;
 /**
  * Subscription form validation component
