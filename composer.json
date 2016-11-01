@@ -11,7 +11,8 @@
     "require-dev": {
         "phpunit/phpunit": "~4.8",
         "squizlabs/php_codesniffer": "2.*",
-        "codeception/codeception": "*"
+        "codeception/codeception": "*",
+        "siriusphp/validation": "1.2.*"
     },
     "authors": [
         {
