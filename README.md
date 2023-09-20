@@ -1,4 +1,4 @@
-# Lassi [![Build Status](https://travis-ci.org/jabranr/lassi.svg?branch=master)](https://travis-ci.org/jabranr/lassi)
+# Lassi (Not maintained anymore)
 PHP boilerplate for quick projects using Slim Framework and Eloquent database.
 
 ![Lassi](https://cloud.githubusercontent.com/assets/2131246/10229125/66ff122e-686e-11e5-9351-d6e840c1917b.png)
